@@ -10,10 +10,22 @@ public_users.post("/register", (req,res) => {
   return res.status(300).json({message: "Yet to be implemented"});
 });
 
+const getAllBooks = new Promise( (resolve, reject) => {
+    try{
+        const data = books;
+        resolve(data)
+    }catch(err){
+        reject(err)
+    }
+})
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
-  //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+    //res.send(JSON.stringify({books},null,4));
+    getAllBooks
+        .then(
+            (data) => res.send(JSON.stringify({data},null,4)),
+            (err) => res.send("Error loading the books")
+        )
 });
 
 // Get book details based on ISBN
